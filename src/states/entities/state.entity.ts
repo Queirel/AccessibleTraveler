@@ -11,7 +11,7 @@ import { CitiesEntity } from '../../cities/entities/city.entity';
 @Entity({ name: 'states' })
 // extends BaseEntity implements IUser
 export class StateEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('increment')
   id: string;
 
   @Column()
@@ -20,7 +20,7 @@ export class StateEntity {
   @Column()
   description: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: true  })
   icon: string;
 
   @ManyToOne(() => CountryEntity, (country) => country.states)

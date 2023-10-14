@@ -1,34 +1,41 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  ParseUUIDPipe,
+} from '@nestjs/common';
 import { PlacesService } from './places.service';
-import { CreatePlaceDto } from './dto/create-place.dto';
-import { UpdatePlaceDto } from './dto/update-place.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('places')
 export class PlacesController {
   constructor(private readonly placesService: PlacesService) {}
 
+  @ApiTags('Places')
   @Post()
-  create(@Body() createPlaceDto: CreatePlaceDto) {
-    return this.placesService.create(createPlaceDto);
+  public async createPlace(@Body() body) {
+    return await this.placesService.createPlace(body);
   }
 
+  @ApiTags('Places')
   @Get()
-  findAll() {
-    return this.placesService.findAll();
+  public async findAllPlaces() {
+    return await this.placesService.findAllPlaces();
   }
 
+  @ApiTags('Places')
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.placesService.findOne(+id);
+  // public async findPlaceById(@Param('id', new ParseUUIDPipe()) id: string) {
+  public async findPlaceById(@Param('id') id: string) {
+    return await this.placesService.findPlaceById(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePlaceDto: UpdatePlaceDto) {
-    return this.placesService.update(+id, updatePlaceDto);
-  }
-
+  @ApiTags('Places')
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.placesService.remove(+id);
+  public async deletePlace(@Param('id') id: string) {
+    return await this.placesService.deletePlace(id);
   }
 }

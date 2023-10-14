@@ -1,34 +1,40 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  ParseUUIDPipe,
+} from '@nestjs/common';
 import { CitiesService } from './cities.service';
-import { CreateCityDto } from './dto/create-city.dto';
-import { UpdateCityDto } from './dto/update-city.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('cities')
 export class CitiesController {
   constructor(private readonly citiesService: CitiesService) {}
 
+  @ApiTags('Cities')
   @Post()
-  create(@Body() createCityDto: CreateCityDto) {
-    return this.citiesService.create(createCityDto);
+  public async createCity(@Body() body) {
+    return await this.citiesService.createCity(body);
   }
 
+  @ApiTags('Cities')
   @Get()
-  findAll() {
-    return this.citiesService.findAll();
+  public async findAllCities() {
+    return await this.citiesService.findAllCities();
   }
 
+  @ApiTags('Cities')
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.citiesService.findOne(+id);
+  public async findCityById(@Param('id', new ParseUUIDPipe()) id: string) {
+    return await this.citiesService.findCityById(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCityDto: UpdateCityDto) {
-    return this.citiesService.update(+id, updateCityDto);
-  }
-
+  @ApiTags('Cities')
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.citiesService.remove(+id);
+  public async deleteCity(@Param('id', new ParseUUIDPipe()) id: string) {
+    return await this.citiesService.deleteCity(id);
   }
 }

@@ -5,13 +5,13 @@ import { UsersEntity } from '../../users/entities/user.entity';
 @Entity({ name: 'country' })
 // extends BaseEntity implements IUser
 export class CountryEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('increment')
   id: string;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
 
-  @Column()
+  @Column({ unique: true, nullable: true })
   image: string;
 
   @OneToMany(() => StateEntity, (state) => state.country)

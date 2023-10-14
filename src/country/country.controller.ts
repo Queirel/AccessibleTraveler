@@ -1,34 +1,40 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  ParseUUIDPipe,
+} from '@nestjs/common';
 import { CountryService } from './country.service';
-import { CreateCountryDto } from './dto/create-country.dto';
-import { UpdateCountryDto } from './dto/update-country.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('country')
 export class CountryController {
   constructor(private readonly countryService: CountryService) {}
 
+  @ApiTags('Country')
   @Post()
-  create(@Body() createCountryDto: CreateCountryDto) {
-    return this.countryService.create(createCountryDto);
+  public async createCountry(@Body() body) {
+    return await this.countryService.createCountry(body);
   }
 
+  @ApiTags('Country')
   @Get()
-  findAll() {
-    return this.countryService.findAll();
+  public async findAllCountries() {
+    return await this.countryService.findAllCountries();
   }
 
+  @ApiTags('Country')
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.countryService.findOne(+id);
+  public async findCountryById(@Param('id', new ParseUUIDPipe()) id: string) {
+    return await this.countryService.findCountryById(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCountryDto: UpdateCountryDto) {
-    return this.countryService.update(+id, updateCountryDto);
-  }
-
+  @ApiTags('Country')
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.countryService.remove(+id);
+  public async deleteCountry(@Param('id', new ParseUUIDPipe()) id: string) {
+    return await this.countryService.deleteCountry(id);
   }
 }

@@ -1,26 +1,38 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAccessibilityDto } from './dto/create-accessibility.dto';
-import { UpdateAccessibilityDto } from './dto/update-accessibility.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { AccessibilityEntity } from './entities/accessibility.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AccessibilityService {
-  create(createAccessibilityDto: CreateAccessibilityDto) {
-    return 'This action adds a new accessibility';
+  constructor(
+    @InjectRepository(AccessibilityEntity)
+    private readonly accessibilityRepository: Repository<AccessibilityEntity>,
+  ) {}
+
+  public async createAccessibility(body) {
+    return await this.accessibilityRepository.save(body);
   }
 
-  findAll() {
-    return `This action returns all accessibility`;
+  public async seedAccessibility(seed) {
+    return await this.accessibilityRepository.save(seed);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} accessibility`;
+  public async findAllAccessibilities() {
+    const accessibility = await this.accessibilityRepository.find();
+    return accessibility;
   }
 
-  update(id: number, updateAccessibilityDto: UpdateAccessibilityDto) {
-    return `This action updates a #${id} accessibility`;
+  public async findAccessibilityById(id: string): Promise<AccessibilityEntity> {
+    const accessibility: AccessibilityEntity =
+      await this.accessibilityRepository.findOne({
+        where: { id },
+      });
+    return accessibility;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} accessibility`;
+  public async deleteAccessibility(id: string) {
+    const accessibility = await this.accessibilityRepository.delete(id);
+    return accessibility;
   }
 }

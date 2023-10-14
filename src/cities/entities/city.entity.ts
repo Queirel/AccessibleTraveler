@@ -13,7 +13,7 @@ import {
 @Entity({ name: 'cities' })
 // extends BaseEntity implements IUser
 export class CitiesEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('increment')
   id: string;
 
   @Column()
@@ -21,12 +21,12 @@ export class CitiesEntity {
 
   // @Column()
   // state_id: string;
-  @OneToMany(() => PlaceEntity, (place) => place.city)
-  place: PlaceEntity[];
+  // @OneToMany(() => PlaceEntity, (place) => place.city)
+  // place: PlaceEntity[];
 
   @ManyToOne(() => StateEntity, (state) => state.city)
   state: StateEntity;
 
-  @OneToOne(() => RecommendedEntity, (recommended) => recommended.city)
-  recommended: RecommendedEntity;
+  // @OneToOne(() => RecommendedEntity, (recommended) => recommended.city)
+  // recommended: RecommendedEntity;
 }

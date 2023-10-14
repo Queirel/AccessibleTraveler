@@ -14,7 +14,7 @@ import { CommentsEntity } from '../../comments/entities/comment.entity';
 @Entity({ name: 'users' })
 // extends BaseEntity implements IUser
 export class UsersEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('increment')
   id: string;
 
   @Column()
@@ -26,7 +26,7 @@ export class UsersEntity {
   @Column({ unique: true })
   email: string;
 
-  @Column({ unique: true, nullable: true })
+  @Column({ nullable: true })
   image: string;
 
   @Exclude()
@@ -42,6 +42,6 @@ export class UsersEntity {
   @ManyToOne(() => CountryEntity, (country) => country.user)
   country: CountryEntity;
 
-  @OneToOne(() => CommentsEntity, (comment) => comment.user)
-  comment: CommentsEntity;
+//   @OneToOne(() => CommentsEntity, (comment) => comment.user)
+//   comment: CommentsEntity;
 }

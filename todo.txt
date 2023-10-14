@@ -1,0 +1,7 @@
+npm run m:gen -- ./src/migrations/init
+
+npm run m:run
+
+docker-compose up -d
+
+docker-compose down

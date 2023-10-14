@@ -14,7 +14,7 @@ import { CommentsEntity } from '../../comments/entities/comment.entity';
 @Entity({ name: 'places' })
 // extends BaseEntity implements IUser
 export class PlaceEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('increment')
   id: string;
 
   @Column()
@@ -32,16 +32,11 @@ export class PlaceEntity {
   @Column()
   longitude: number;
 
-  // @Column()
-  // caterory_id: number;
+  // @ManyToOne(() => CitiesEntity, (city) => city.place)
+  // city: CitiesEntity;
 
-  // @Column()
-  // city_id: number;
-  @ManyToOne(() => CitiesEntity, (city) => city.place)
-  city: CitiesEntity;
-
-  @ManyToOne(() => CategoriesEntity, (category) => category.place)
-  category: CategoriesEntity;
+  // @ManyToOne(() => CategoriesEntity, (category) => category.place)
+  // category: CategoriesEntity;
 
   @OneToMany(
     () => PlacesAccessibilityEntity,
@@ -52,6 +47,6 @@ export class PlaceEntity {
   @OneToMany(() => ImagePlaceEntity, (img_plc) => img_plc.place)
   img_plc: ImagePlaceEntity[];
 
-  @OneToMany(() => CommentsEntity, (comment) => comment.place)
-  comment: CommentsEntity[];
+  // @OneToMany(() => CommentsEntity, (comment) => comment.place)
+  // comment: CommentsEntity[];
 }

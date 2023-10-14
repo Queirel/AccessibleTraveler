@@ -10,16 +10,22 @@ import {
 @Entity({ name: 'recommended' })
 // extends BaseEntity implements IUser
 export class RecommendedEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('increment')
   id: string;
 
   @Column()
+  name: string;
+
+  @Column()
+  place: string;
+  
+  @Column({ nullable: true })
   image: string;
 
   // @Column()
   // city_id: string;
 
-  @OneToOne(() => CitiesEntity, (city) => city.recommended)
-  @JoinColumn({ name: 'city_id' })
-  city: CitiesEntity;
+//   @OneToOne(() => CitiesEntity, (city) => city.recommended)
+//   @JoinColumn({ name: 'city_id' })
+//   city: CitiesEntity;
 }

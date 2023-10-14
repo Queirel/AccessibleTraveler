@@ -12,7 +12,7 @@ import {
 @Entity({ name: 'comments' })
 // extends BaseEntity implements IUser
 export class CommentsEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('increment')
   id: string;
 
   @Column()
@@ -21,16 +21,16 @@ export class CommentsEntity {
   @Column()
   comment: string;
 
-  // @Column()
-  // user_id: string;
+  @Column()
+  user_id: string;
 
-  // @Column()
-  // place_id: string;
+  @Column()
+  place_id: string;
 
-  @ManyToOne(() => PlaceEntity, (place) => place.comment)
-  place: PlaceEntity;
+//   @ManyToOne(() => PlaceEntity, (place) => place.comment)
+//   place: PlaceEntity;
 
-  @OneToOne(() => UsersEntity, (user) => user.comment)
-  @JoinColumn({ name: 'user_id' })
-  user: UsersEntity;
+//   @OneToOne(() => UsersEntity, (user) => user.comment)
+//   @JoinColumn({ name: 'user_id' })
+//   user: UsersEntity;
 }

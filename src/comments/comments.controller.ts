@@ -2,33 +2,33 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('comments')
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
+  @ApiTags('Comments')
   @Post()
-  create(@Body() createCommentDto: CreateCommentDto) {
-    return this.commentsService.create(createCommentDto);
+  public async createComment(@Body() body) {
+    return await this.commentsService.createComment(body);
   }
 
+  @ApiTags('Comments')
   @Get()
-  findAll() {
-    return this.commentsService.findAll();
+  public async findAllComments() {
+    return await this.commentsService.findAllComments();
   }
 
+  @ApiTags('Comments')
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.commentsService.findOne(+id);
+  public async findCommentById(@Param('id') id: string) {
+    return await this.commentsService.findCommentById(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCommentDto: UpdateCommentDto) {
-    return this.commentsService.update(+id, updateCommentDto);
-  }
-
+  @ApiTags('Comments')
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.commentsService.remove(+id);
+  public async deleteComment(@Param('id') id: string) {
+    return await this.commentsService.deleteComment(id);
   }
 }

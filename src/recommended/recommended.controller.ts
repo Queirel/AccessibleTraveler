@@ -1,34 +1,42 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  ParseUUIDPipe,
+} from '@nestjs/common';
 import { RecommendedService } from './recommended.service';
-import { CreateRecommendedDto } from './dto/create-recommended.dto';
-import { UpdateRecommendedDto } from './dto/update-recommended.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('recommended')
 export class RecommendedController {
   constructor(private readonly recommendedService: RecommendedService) {}
 
+  @ApiTags('Recommended')
   @Post()
-  create(@Body() createRecommendedDto: CreateRecommendedDto) {
-    return this.recommendedService.create(createRecommendedDto);
+  public async createRecommended(@Body() body) {
+    return await this.recommendedService.createRecommended(body);
   }
 
+  @ApiTags('Recommended')
   @Get()
-  findAll() {
-    return this.recommendedService.findAll();
+  public async findAllRecommended() {
+    return await this.recommendedService.findAllRecommended();
   }
 
+  @ApiTags('Recommended')
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.recommendedService.findOne(+id);
+  public async findRecommendedById(
+    @Param('id', new ParseUUIDPipe()) id: string,
+  ) {
+    return await this.recommendedService.findRecommendedById(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRecommendedDto: UpdateRecommendedDto) {
-    return this.recommendedService.update(+id, updateRecommendedDto);
-  }
-
+  @ApiTags('Recommended')
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.recommendedService.remove(+id);
+  public async deleteRecommended(@Param('id', new ParseUUIDPipe()) id: string) {
+    return await this.recommendedService.deleteRecommended(id);
   }
 }

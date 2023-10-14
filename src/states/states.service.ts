@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import { CreateStateDto } from './dto/create-state.dto';
-import { UpdateStateDto } from './dto/update-state.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { StateEntity } from './entities/state.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class StatesService {
-  create(createStateDto: CreateStateDto) {
-    return 'This action adds a new state';
+  constructor(
+    @InjectRepository(StateEntity)
+    private readonly stateRepository: Repository<StateEntity>,
+  ) {}
+
+  public async createState(body) {
+    return await this.stateRepository.save(body);
   }
 
-  findAll() {
-    return `This action returns all states`;
+  public async findAllStates() {
+    const state = await this.stateRepository.find();
+    return state;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} state`;
+  public async findStateById(id: string): Promise<StateEntity> {
+    const state: StateEntity = await this.stateRepository.findOne({
+      where: { id },
+    });
+    return state;
   }
 
-  update(id: number, updateStateDto: UpdateStateDto) {
-    return `This action updates a #${id} state`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} state`;
+  public async deleteState(id: string) {
+    const state = await this.stateRepository.delete(id);
+    return state;
   }
 }
