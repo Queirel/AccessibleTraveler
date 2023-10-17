@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+} from '@nestjs/common';
 import { AccessibilityService } from './accessibility.service';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -36,6 +44,11 @@ export class AccessibilityController {
     });
 
     return await this.accessibilityService.findAllAccessibilities();
+  }
+
+  @Put(':id')
+  public async updateAccessibility(@Param('id') id: string, @Body() body: any) {
+    return await this.accessibilityService.updateAccessibility(body, id);
   }
 
   @ApiTags('Accessibility')

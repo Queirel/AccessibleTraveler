@@ -6,13 +6,19 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
+  Put,
 } from '@nestjs/common';
-import { CategoriesService } from './categories.service'
+import { CategoriesService } from './categories.service';
 import { ApiTags } from '@nestjs/swagger';
 
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
+
+  @Put(':id')
+  public async updateCategory(@Param('id') id: string, @Body() body: any) {
+    return await this.categoriesService.updateCategory(body, id);
+  }
 
   @ApiTags('Category')
   @Get('seed')
@@ -81,14 +87,14 @@ export class CategoriesController {
   @ApiTags('Category')
   @Get(':id')
   public async findCategoryById(@Param('id') id: string) {
-  // public async findCategoryById(@Param('id', new ParseUUIDPipe()) id: string) {
+    // public async findCategoryById(@Param('id', new ParseUUIDPipe()) id: string) {
     return await this.categoriesService.findCategoryById(id);
   }
 
   @ApiTags('Category')
   @Delete(':id')
   public async deleteCategory(@Param('id') id: string) {
-  // public async deleteCategory(@Param('id', new ParseUUIDPipe()) id: string) {
+    // public async deleteCategory(@Param('id', new ParseUUIDPipe()) id: string) {
     return await this.categoriesService.deleteCategory(id);
   }
 }

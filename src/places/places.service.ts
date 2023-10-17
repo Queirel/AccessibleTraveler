@@ -19,6 +19,11 @@ export class PlacesService {
     return place;
   }
 
+  public async updatePlace(body: any, id: any) {
+    const place = await this.placeRepository.update(id, body);
+    return place;
+  }
+
   public async findPlaceById(id: string): Promise<PlaceEntity> {
     const place: PlaceEntity = await this.placeRepository.findOne({
       where: { id },

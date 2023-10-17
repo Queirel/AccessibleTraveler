@@ -42,22 +42,8 @@ export class UsersService {
     }
   }
 
-  public async updateUser(body, id) {
-    // try {
-      const user = await this.userRepository.update(id, body);
-      // if (user.affected === 0) {
-        // throw new ErrorManager({
-        //   type: 'BAD_REQUEST',
-        //   message: 'No se pudo actualizar',
-        // });
-      // }
-      return user;
-    // } catch (error) {
-    //   throw new InternalServerErrorException('some error');
-    // }
+  public async updateUser(body: any, id: any) {
+    const user = await this.userRepository.update(id, body);
+    return user;
   }
-
-  // update(id: number) {
-  //   return `This action updates a #${id} user`;
-  // }
 }

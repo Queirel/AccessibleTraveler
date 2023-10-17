@@ -21,6 +21,11 @@ export class RecommendedService {
     return recommended;
   }
 
+  public async updateRecommended(body: any, id: any) {
+    const recommended = await this.recommendedRepository.update(id, body);
+    return recommended;
+  }
+
   public async findRecommendedById(id: string): Promise<RecommendedEntity> {
     const recommended: RecommendedEntity =
       await this.recommendedRepository.findOne({

@@ -35,4 +35,9 @@ export class AccessibilityService {
     const accessibility = await this.accessibilityRepository.delete(id);
     return accessibility;
   }
+
+  public async updateAccessibility(body: any, id: any) {
+    const accessibility = await this.accessibilityRepository.update(id, body);
+    return accessibility;
+  }
 }

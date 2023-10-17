@@ -35,4 +35,10 @@ export class CategoriesService {
     const category = await this.categoryRepository.delete(id);
     return category;
   }
+
+  public async updateCategory(body: any, id: any) {
+    const category = await this.categoryRepository.update(id, body);
+    return category;
+  }
+
 }

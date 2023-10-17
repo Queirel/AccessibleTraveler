@@ -6,6 +6,7 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
+  Put,
 } from '@nestjs/common';
 import { RecommendedService } from './recommended.service';
 import { ApiTags } from '@nestjs/swagger';
@@ -24,6 +25,11 @@ export class RecommendedController {
   @Get()
   public async findAllRecommended() {
     return await this.recommendedService.findAllRecommended();
+  }
+
+  @Put(':id')
+  public async updateRecommended(@Param('id') id: string, @Body() body: any) {
+    return await this.recommendedService.updateRecommended(body, id);
   }
 
   @ApiTags('Recommended')

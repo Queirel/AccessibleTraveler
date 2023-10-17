@@ -6,6 +6,7 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
+  Put,
 } from '@nestjs/common';
 import { PlacesService } from './places.service';
 import { ApiTags } from '@nestjs/swagger';
@@ -19,6 +20,12 @@ export class PlacesController {
   public async createPlace(@Body() body) {
     return await this.placesService.createPlace(body);
   }
+
+  @Put(':id')
+  public async updatePlace(@Param('id') id: string, @Body() body: any) {
+    return await this.placesService.updatePlace(body, id);
+  }
+
 
   @ApiTags('Places')
   @Get()
