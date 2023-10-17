@@ -6,7 +6,8 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
-  // Patch,
+  Patch,
+  Put,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 // import { CreateUserDto } from './dto/create-user.dto';
@@ -30,6 +31,11 @@ export class UsersController {
     return await this.usersService.createUser(body);
   }
 
+  @Put(':id')
+  public async updateUser(@Param('id') id: string, @Body() body: any) {
+    return await this.usersService.updateUser(body, id);
+  }
+
   @ApiTags('Users')
   @Get()
   public async findAllUsers() {
@@ -42,9 +48,9 @@ export class UsersController {
     return await this.usersService.findUserById(id);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-  //   return this.usersService.update(+id, updateUserDto);
+  // @Put(':id')
+  // update(@Param('id') id: string, @Body(body)) {
+  //   return this.usersService.updateUser(+id);
   // }
 
   @ApiTags('Users')
