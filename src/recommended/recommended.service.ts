@@ -26,11 +26,10 @@ export class RecommendedService {
     return recommended;
   }
 
-  public async findRecommendedById(id: string): Promise<RecommendedEntity> {
-    const recommended: RecommendedEntity =
-      await this.recommendedRepository.findOne({
-        where: { id },
-      });
+  public async findRecommendedById(id: any) {
+    const recommended = await this.recommendedRepository.findOne({
+      where: { id },
+    });
     return recommended;
   }
 

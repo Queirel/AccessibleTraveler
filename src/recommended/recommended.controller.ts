@@ -34,15 +34,13 @@ export class RecommendedController {
 
   @ApiTags('Recommended')
   @Get(':id')
-  public async findRecommendedById(
-    @Param('id', new ParseUUIDPipe()) id: string,
-  ) {
+  public async findRecommendedById(@Param('id') id: string) {
     return await this.recommendedService.findRecommendedById(id);
   }
 
   @ApiTags('Recommended')
   @Delete(':id')
-  public async deleteRecommended(@Param('id', new ParseUUIDPipe()) id: string) {
+  public async deleteRecommended(@Param('id') id: string) {
     return await this.recommendedService.deleteRecommended(id);
   }
 }
