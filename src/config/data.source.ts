@@ -15,8 +15,8 @@ export const DataSourceConfig: DataSourceOptions = {
   // username: configService.get('DB_USER'),
   // password: configService.get('DB_PASSWORD'),
   // database: configService.get('DB_NAME'),
-  host: 'localhost',
-  port: 5434,
+  host: 'accesapp2.csigyf5niqgz.us-east-2.rds.amazonaws.com',
+  port: 5432,
   username: 'postgres',
   password: 'password',
   database: 'accesapp',
@@ -25,6 +25,15 @@ export const DataSourceConfig: DataSourceOptions = {
   migrationsTableName: 'migrations',
   synchronize: false,
   migrationsRun: true,
+  ssl: {
+    rejectUnauthorized: false, // This line will fix new error
+  },
+  // ssl: true,
+  // extra: {
+  //   trustServerCertificate: true,
+  //   Encrypt: true,
+  //   IntegratedSecurity: false,
+  // },
   // logging: true,
   // cache: true,
   // runSeeders: [InitSeeder],
