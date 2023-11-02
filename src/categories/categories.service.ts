@@ -15,6 +15,7 @@ export class CategoriesService {
   }
 
   public async seedCategory(seed) {
+    await this.categoryRepository.query('TRUNCATE TABLE "categories" CASCADE');
     return await this.categoryRepository.save(seed);
   }
 
