@@ -68,7 +68,7 @@ NBZ4CY4ebsy0B9PkxUAfBApIndm2
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
-
+  app.enableCors();
   await app.listen(3000);
 }
 bootstrap();
