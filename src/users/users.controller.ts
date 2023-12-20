@@ -18,10 +18,6 @@ import { ApiParam, ApiTags } from '@nestjs/swagger';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  // @Post()
-  // create(@Body() createUserDto: CreateUserDto) {
-  //   return this.usersService.create(createUserDto);
-  // }
   @ApiParam({
     name: ' ',
   })
@@ -32,7 +28,10 @@ export class UsersController {
   }
 
   @Put(':id')
-  public async updateUser(@Param('id') id: string, @Body() body: any) {
+  public async updateUser(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() body: any,
+  ) {
     return await this.usersService.updateUser(body, id);
   }
 
@@ -44,18 +43,13 @@ export class UsersController {
 
   @ApiTags('Users')
   @Get(':id')
-  public async findUserById(@Param('id') id: string) {
+  public async findUserById(@Param('id', ParseUUIDPipe) id: string) {
     return await this.usersService.findUserById(id);
   }
 
-  // @Put(':id')
-  // update(@Param('id') id: string, @Body(body)) {
-  //   return this.usersService.updateUser(+id);
-  // }
-
   @ApiTags('Users')
   @Delete(':id')
-  public async deleteUser(@Param('id') id: string) {
+  public async deleteUser(@Param('id', ParseUUIDPipe) id: string) {
     return await this.usersService.deleteUser(id);
   }
 }

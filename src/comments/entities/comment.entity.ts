@@ -12,7 +12,7 @@ import {
 @Entity({ name: 'comments' })
 // extends BaseEntity implements IUser
 export class CommentsEntity {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()

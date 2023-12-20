@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  ParseUUIDPipe,
+} from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
@@ -22,13 +30,13 @@ export class CommentsController {
 
   @ApiTags('Comments')
   @Get(':id')
-  public async findCommentById(@Param('id') id: string) {
+  public async findCommentById(@Param('id', ParseUUIDPipe) id: string) {
     return await this.commentsService.findCommentById(id);
   }
 
   @ApiTags('Comments')
   @Delete(':id')
-  public async deleteComment(@Param('id') id: string) {
+  public async deleteComment(@Param('id', ParseUUIDPipe) id: string) {
     return await this.commentsService.deleteComment(id);
   }
 }

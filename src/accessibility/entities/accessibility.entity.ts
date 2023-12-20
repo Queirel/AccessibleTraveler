@@ -5,7 +5,7 @@ import { PlacesAccessibilityEntity } from '../../place-acc/entities/place-acc.en
 @Entity({ name: 'accessibility' })
 // extends BaseEntity implements IUser
 export class AccessibilityEntity {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()

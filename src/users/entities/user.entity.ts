@@ -14,7 +14,7 @@ import { CommentsEntity } from '../../comments/entities/comment.entity';
 @Entity({ name: 'users' })
 // extends BaseEntity implements IUser
 export class UsersEntity {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()

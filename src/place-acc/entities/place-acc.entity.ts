@@ -4,8 +4,8 @@ import { PlaceEntity } from '../../places/entities/place.entity';
 
 @Entity({ name: 'place_accessibility' })
 export class PlacesAccessibilityEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   // Relación muchos-a-uno con User
   @ManyToOne(() => PlaceEntity, (place) => place.accessibilityIncludes)
@@ -14,7 +14,7 @@ export class PlacesAccessibilityEntity {
   // Relación muchos-a-uno con Accessibility
   @ManyToOne(
     () => AccessibilityEntity,
-    (accessibility) => accessibility.placesIncludes,
+        (accessibility) => accessibility.placesIncludes,
   )
   accessibility: AccessibilityEntity;
 }

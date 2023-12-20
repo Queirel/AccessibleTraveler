@@ -10,7 +10,7 @@ import {
 @Entity({ name: 'recommended' })
 // extends BaseEntity implements IUser
 export class RecommendedEntity {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
