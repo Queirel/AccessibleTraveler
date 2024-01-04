@@ -6,13 +6,14 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
-  Patch,
   Put,
+  ValidationPipe,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-// import { CreateUserDto } from './dto/create-user.dto';
 import { ApiParam, ApiTags } from '@nestjs/swagger';
-// import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { PaginationDto } from 'src/helper/pagination.dto';
 
 @Controller('users')
 export class UsersController {
@@ -23,8 +24,10 @@ export class UsersController {
   })
   @ApiTags('Users')
   @Post()
-  public async registerUser(@Body() body) {
-    return await this.usersService.createUser(body);
+  public async registerUser(
+    @Body(new ValidationPipe()) createUserDto: CreateUserDto,
+  ) {
+    return await this.usersService.createUser(createUserDto);
   }
 
   @Put(':id')
@@ -37,8 +40,8 @@ export class UsersController {
 
   @ApiTags('Users')
   @Get()
-  public async findAllUsers() {
-    return await this.usersService.findAllUsers();
+  public async findAllUsers(@Query() pagination: PaginationDto): Promise<any> {
+    return await this.usersService.findAllUsers(pagination);
   }
 
   @ApiTags('Users')

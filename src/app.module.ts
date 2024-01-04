@@ -13,10 +13,27 @@ import { CategoriesModule } from './categories/categories.module';
 import { ImagesPlacesModule } from './images-places/images-places.module';
 import { PlaceAccModule } from './place-acc/place-acc.module';
 import { UserAccModule } from './user-acc/user-acc.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(DataSourceConfig),
+    ConfigModule.forRoot({
+      envFilePath: `./env/${process.env.NODE_ENV}.env`,
+      isGlobal: true,
+    }),
+    // TypeOrmModule.forRoot({DataSourceConfig}),
+    TypeOrmModule.forRootAsync({
+      useFactory: () => ({
+        type: 'postgres',
+        host: process.env.DB_HOST,
+        port: Number(process.env.DB_PORT),
+        username: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB,
+        entities: ['dist/**/*.entity{.ts,.js}'],
+        synchronize: true,
+      }),
+    }),
     UsersModule,
     CountryModule,
     StatesModule,

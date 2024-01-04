@@ -7,6 +7,11 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 // });
 
 // const configService = new ConfigService();
+const host = process.env.DB_HOST;
+const port = +process.env.DB_PORT;
+const username = process.env.DB_USERNAME;
+const password = process.env.DB_PASSWORD;
+const database = process.env.DB;
 
 export const DataSourceConfig: DataSourceOptions = {
   type: 'postgres',
@@ -16,11 +21,16 @@ export const DataSourceConfig: DataSourceOptions = {
   // password: configService.get('DB_PASSWORD'),
   // database: configService.get('DB_NAME'),
   // host: 'accesapp2.csigyf5niqgz.us-east-2.rds.amazonaws.com',
-  host: 'localhost',
-  port: 5432,
-  username: 'postgres',
-  password: 'password',
-  database: 'accesapp',
+  // host: 'localhost',
+  // port: 5432,
+  // username: 'postgres',
+  // password: 'password',
+  // database: 'accesapp',
+  host: process.env.DB_HOST,
+  port: +process.env.DB_PORT,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB,
   entities: [__dirname + '/../**/**/*.entity{.ts,.js}'],
   migrations: [__dirname + '/../migrations/*{.ts,.js}'],
   migrationsTableName: 'migrations',

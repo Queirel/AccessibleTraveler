@@ -3,7 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UsersEntity } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-
+import { CreateUserDto } from './dto/create-user.dto';
+import { PaginationDto } from 'src/helper/pagination.dto';
+// import { registrarUsuario } from '../helper/cognito';
 @Injectable()
 export class UsersService {
   constructor(
@@ -11,15 +13,26 @@ export class UsersService {
     private readonly userRepository: Repository<UsersEntity>,
   ) {}
 
-  public async createUser(body) {
+  public async createUser(createUserDto: CreateUserDto) {
     // try {
-    body.password = await bcrypt.hash(body.password, 10);
-    return await this.userRepository.save(body);
+    createUserDto.password = await bcrypt.hash(createUserDto.password, 10);
+    // const cognito = registrarUsuario(
+    //   createUserDto.firstname,
+    //   createUserDto.password,
+    //   createUserDto.email,
+    // );
+    const user = await this.userRepository.save(createUserDto);
+    return {
+      user,
+      // cognito,
+    };
   }
 
-  public async findAllUsers() {
-    const users = await this.userRepository.find();
-    return users;
+  public async findAllUsers({
+    limit,
+    offset,
+  }: PaginationDto): Promise<UsersEntity[]> {
+    return await this.userRepository.find({ skip: offset, take: limit });
   }
 
   public async findUserById(id: string): Promise<UsersEntity> {

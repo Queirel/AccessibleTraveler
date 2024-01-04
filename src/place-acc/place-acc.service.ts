@@ -12,15 +12,15 @@ export class PlaceAccService {
     return `This action returns all placeAcc`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} placeAcc`;
   }
 
-  update(id: number, updatePlaceAccDto: UpdatePlaceAccDto) {
+  update(id: string, updatePlaceAccDto: UpdatePlaceAccDto) {
     return `This action updates a #${id} placeAcc`;
   }
 
-  remove(id: number) {
+  deletePlaceAcc(id: string) {
     return `This action removes a #${id} placeAcc`;
   }
 }

@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ParseUUIDPipe,
+} from '@nestjs/common';
 import { PlaceAccService } from './place-acc.service';
 import { CreatePlaceAccDto } from './dto/create-place-acc.dto';
 import { UpdatePlaceAccDto } from './dto/update-place-acc.dto';
@@ -18,17 +27,20 @@ export class PlaceAccController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.placeAccService.findOne(+id);
+  findOne(@Param('id', ParseUUIDPipe) id: string) {
+    return this.placeAccService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePlaceAccDto: UpdatePlaceAccDto) {
-    return this.placeAccService.update(+id, updatePlaceAccDto);
+  update(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() updatePlaceAccDto: UpdatePlaceAccDto,
+  ) {
+    return this.placeAccService.update(id, updatePlaceAccDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.placeAccService.remove(+id);
+  public async deletePlaceAcc(@Param('id', ParseUUIDPipe) id: string) {
+    return await this.placeAccService.deletePlaceAcc(id);
   }
 }
