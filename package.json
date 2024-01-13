@@ -29,6 +29,8 @@
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^7.1.10",
     "@nestjs/typeorm": "^10.0.0",
+    "amazon-cognito-identity-js": "^6.3.7",
+    "aws-jwt-verify": "^4.0.0",
     "aws-sdk": "^2.1528.0",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",

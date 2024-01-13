@@ -1,8 +1,12 @@
-import { CitiesEntity } from '../../cities/entities/city.entity';
+// import { CitiesEntity } from '../../cities/entities/city.entity';
+
+import { PlaceEntity } from 'src/places/entities/place.entity';
 import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -13,19 +17,27 @@ export class RecommendedEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  name: string;
+  // @Column()
+  // name: string;
 
-  @Column()
-  place: string;
+  // @Column()
+  // place: string;
   
-  @Column({ nullable: true })
-  image: string;
+  // @Column({ nullable: true })
+  // image: string;
 
   // @Column()
   // city_id: string;
+  // @OneToMany(() => PlaceEntity, (place) => place.recommended)
+  // @JoinColumn({ name: 'place_id' })
+  // place: PlaceEntity;
 
-//   @OneToOne(() => CitiesEntity, (city) => city.recommended)
-//   @JoinColumn({ name: 'city_id' })
-//   city: CitiesEntity;
+  @ManyToOne(() => PlaceEntity, (place) => place.recommended)
+  @JoinColumn({ name: 'place_id' })
+  place: PlaceEntity;
+
+
+  // @OneToOne(() => PlaceEntity, (place) => place.recommended)
+  // @JoinColumn({ name: 'place_id' })
+  // city: PlaceEntity;
 }

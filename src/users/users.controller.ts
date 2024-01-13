@@ -9,11 +9,16 @@ import {
   Put,
   ValidationPipe,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiParam, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
 import { PaginationDto } from 'src/helper/pagination.dto';
+import { CreateUserCognitoDto } from './dto/create-user-cognito.dto';
+import { AuthiGuard } from 'src/authi/authi.guard';
+// import { JwtGuard } from '../auth/jwt-auth.guard';
+import { seedUsers } from '../helper/seed';
 
 @Controller('users')
 export class UsersController {
@@ -27,7 +32,30 @@ export class UsersController {
   public async registerUser(
     @Body(new ValidationPipe()) createUserDto: CreateUserDto,
   ) {
-    return await this.usersService.createUser(createUserDto);
+    const { email, password } = createUserDto;
+    const cognitoData = { email, password };
+    const cognito = await this.usersService.createUserCognito(cognitoData);
+    const user = await this.usersService.createUser(createUserDto);
+    return { cognito, user };
+  }
+
+  @Post('login')
+  public async authenticateUser(
+    @Body(new ValidationPipe()) createUserDto: CreateUserCognitoDto,
+  ) {
+    const { email, password } = createUserDto;
+    const cognitoData = { email, password };
+    return await this.usersService.authenticateUser(cognitoData);
+  }
+
+  @Get('jwt')
+  public async cognitoVerify() {
+    return await this.usersService.cognitoVerify();
+  }
+
+  @Get('seed')
+  public async seedUsers() {
+    return await this.usersService.seedUsers();
   }
 
   @Put(':id')
@@ -40,6 +68,7 @@ export class UsersController {
 
   @ApiTags('Users')
   @Get()
+  // @UseGuards(AuthiGuard)
   public async findAllUsers(@Query() pagination: PaginationDto): Promise<any> {
     return await this.usersService.findAllUsers(pagination);
   }

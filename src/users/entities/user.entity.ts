@@ -7,8 +7,8 @@ import {
   OneToOne,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import { UsersAccessibilityEntity } from '../../user-acc/entities/user-acc.entity';
-import { CountryEntity } from '../../country/entities/country.entity';
+// import { UsersAccessibilityEntity } from '../../user-acc/entities/user-acc.entity';
+// import { CountryEntity } from '../../country/entities/country.entity';
 import { CommentsEntity } from '../../comments/entities/comment.entity';
 
 @Entity({ name: 'users' })
@@ -33,15 +33,15 @@ export class UsersEntity {
   @Column()
   password: string;
 
-  @OneToMany(
-    () => UsersAccessibilityEntity,
-    (usersAccessibility) => usersAccessibility.user,
-  )
-  accessibilityIncludes: UsersAccessibilityEntity[];
+  // @OneToMany(
+  //   () => UsersAccessibilityEntity,
+  //   (usersAccessibility) => usersAccessibility.user,
+  // )
+  // accessibilityIncludes: UsersAccessibilityEntity[];
 
-  @ManyToOne(() => CountryEntity, (country) => country.user)
-  country: CountryEntity;
+  // @ManyToOne(() => CountryEntity, (country) => country.user)
+  // country: CountryEntity;
 
-//   @OneToOne(() => CommentsEntity, (comment) => comment.user)
-//   comment: CommentsEntity;
+  @OneToOne(() => CommentsEntity, (comment) => comment.user)
+  comment: CommentsEntity;
 }

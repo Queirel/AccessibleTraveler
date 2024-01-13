@@ -10,10 +10,11 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 const host = process.env.DB_HOST;
 const port = +process.env.DB_PORT;
 const username = process.env.DB_USERNAME;
-const password = process.env.DB_PASSWORD;
+const password = JSON.stringify(process.env.DB_PASSWORD);
 const database = process.env.DB;
 
 export const DataSourceConfig: DataSourceOptions = {
+
   type: 'postgres',
   // host: configService.get('DB_HOST'),
   // port: configService.get('DB_PORT'),
@@ -26,11 +27,11 @@ export const DataSourceConfig: DataSourceOptions = {
   // username: 'postgres',
   // password: 'password',
   // database: 'accesapp',
-  host: process.env.DB_HOST,
-  port: +process.env.DB_PORT,
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB,
+  host: 'localhost',
+  port,
+  username: 'postgres',
+  password: 'password',
+  database: 'accesapp',
   entities: [__dirname + '/../**/**/*.entity{.ts,.js}'],
   migrations: [__dirname + '/../migrations/*{.ts,.js}'],
   migrationsTableName: 'migrations',

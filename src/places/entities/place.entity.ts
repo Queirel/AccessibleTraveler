@@ -6,10 +6,11 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { PlacesAccessibilityEntity } from '../../place-acc/entities/place-acc.entity';
-import { CitiesEntity } from '../../cities/entities/city.entity';
+// import { CitiesEntity } from '../../cities/entities/city.entity';
 import { CategoriesEntity } from '../../categories/entities/category.entity';
 import { ImagePlaceEntity } from '../../images-places/entities/images-place.entity';
 import { CommentsEntity } from '../../comments/entities/comment.entity';
+import { RecommendedEntity } from 'src/recommended/entities/recommended.entity';
 
 @Entity({ name: 'places' })
 // extends BaseEntity implements IUser
@@ -24,19 +25,22 @@ export class PlaceEntity {
   description: string;
 
   @Column()
-  address: string;
+  placeid: string;
 
-  @Column()
-  latitude: number;
-
-  @Column()
-  longitude: number;
+  // @Column()
+  // longitude: number;
 
   // @ManyToOne(() => CitiesEntity, (city) => city.place)
   // city: CitiesEntity;
 
-  // @ManyToOne(() => CategoriesEntity, (category) => category.place)
-  // category: CategoriesEntity;
+  @ManyToOne(() => CategoriesEntity, (category) => category.place)
+  category: CategoriesEntity;
+
+  // @ManyToOne(() => RecommendedEntity, (recommended) => recommended.place)
+  // recommended: RecommendedEntity;
+  
+  @OneToMany(() => RecommendedEntity, (recommended) => recommended.place)
+  recommended: RecommendedEntity;
 
   @OneToMany(
     () => PlacesAccessibilityEntity,
@@ -47,6 +51,6 @@ export class PlaceEntity {
   @OneToMany(() => ImagePlaceEntity, (img_plc) => img_plc.place)
   img_plc: ImagePlaceEntity[];
 
-  // @OneToMany(() => CommentsEntity, (comment) => comment.place)
-  // comment: CommentsEntity[];
+  @OneToMany(() => CommentsEntity, (comment) => comment.place)
+  comment: CommentsEntity[];
 }

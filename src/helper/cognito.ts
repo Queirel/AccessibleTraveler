@@ -1,54 +1,22 @@
-// import AWS from 'aws-sdk';
+import { CognitoJwtVerifier } from 'aws-jwt-verify';
 
-// // Configura la región de AWS
-// AWS.config.update({ region: 'us-east-2' });
+// Verifier that expects valid access tokens:
+export async function cognitoVerifier(token) {
+  const verifier = CognitoJwtVerifier.create({
+    userPoolId: 'us-east-2_0jNIt3K3t',
+    tokenUse: 'access',
+    clientId: 'buarncjnc7rpqrro0i9vagu26',
+  });
 
-// // Crea un nuevo objeto de servicio cognito
-// const cognito = new AWS.CognitoIdentityServiceProvider();
-
-// // Ejemplo de función para registrar un nuevo usuario
-// export async function registrarUsuario(username, password, email) {
-//   try {
-//     const params = {
-//       ClientId: 'buarncjnc7rpqrro0i9vagu26', // ID del cliente de la app creada en Cognito
-//       Username: username,
-//       Password: password,
-//       UserAttributes: [
-//         {
-//           Name: 'email',
-//           Value: email,
-//         },
-//       ],
-//     };
-
-//     const data = await cognito.signUp(params).promise();
-//     console.log('Usuario registrado:', data);
-//     return data;
-//   } catch (error) {
-//     console.error('Error al registrar usuario:', error);
-//     throw error;
-//   }
-// }
-
-// // Ejemplo de función para autenticar un usuario
-// // async function autenticarUsuario(username, password) {
-// //   try {
-// //     const params = {
-// //       AuthFlow: 'USER_PASSWORD_AUTH',
-// //       ClientId: 'buarncjnc7rpqrro0i9vagu26',
-// //       AuthParameters: {
-// //         USERNAME: username,
-// //         PASSWORD: password,
-// //       },
-// //     };
-
-// //     const data = await cognito.initiateAuth(params).promise();
-// //     console.log('Usuario autenticado:', data);
-// //     return data;
-// //   } catch (error) {
-// //     console.error('Error al autenticar usuario:', error);
-// //     throw error;
-// //   }
-// // }
-
-// // Llama a las funciones según lo necesites en tu aplicación
+  try {
+    const payload = await verifier.verify(
+      token, // the JWT as string
+    );
+    console.log('Token is valid. Payload:', payload);
+    // return payload;
+    return true;
+  } catch {
+    // return console.log('Token not valid!');
+    return false;
+  }
+}
