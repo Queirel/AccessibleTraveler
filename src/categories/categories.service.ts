@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CategoriesEntity } from './entities/category.entity';
 import { Repository } from 'typeorm';
+import { seedCategories } from 'src/helper/seed/categorySeed';
 
 @Injectable()
 export class CategoriesService {
@@ -25,10 +26,9 @@ export class CategoriesService {
   }
 
   public async findCategoryById(id: string): Promise<CategoriesEntity> {
-    const category: CategoriesEntity =
-      await this.categoryRepository.findOne({
-        where: { id },
-      });
+    const category: CategoriesEntity = await this.categoryRepository.findOne({
+      where: { id },
+    });
     return category;
   }
 
@@ -42,4 +42,8 @@ export class CategoriesService {
     return category;
   }
 
+  public async seedCategories() {
+    await this.categoryRepository.query('TRUNCATE TABLE "categories" CASCADE');
+    await this.categoryRepository.insert(seedCategories);
+  }
 }

@@ -18,7 +18,7 @@ import { PaginationDto } from 'src/helper/pagination.dto';
 import { CreateUserCognitoDto } from './dto/create-user-cognito.dto';
 import { AuthiGuard } from 'src/authi/authi.guard';
 // import { JwtGuard } from '../auth/jwt-auth.guard';
-import { seedUsers } from '../helper/seed';
+import { seedUsers } from '../helper/seed/userSeed';
 
 @Controller('users')
 export class UsersController {

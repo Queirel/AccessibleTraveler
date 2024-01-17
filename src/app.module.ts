@@ -13,7 +13,9 @@ import { CategoriesModule } from './categories/categories.module';
 import { ImagesPlacesModule } from './images-places/images-places.module';
 import { PlaceAccModule } from './place-acc/place-acc.module';
 // import { UserAccModule } from './user-acc/user-acc.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
@@ -21,12 +23,11 @@ import { ConfigModule } from '@nestjs/config';
       envFilePath: `./env/${process.env.NODE_ENV}.env`,
       isGlobal: true,
     }),
-    TypeOrmModule.forRoot(DataSourceConfig),
-    // TypeOrmModule.forRootAsync({
-    //   useFactory: () => ({
-    //     DataSourceConfig,
-    //   }),
-    // }),
+    // TypeOrmModule.forRoot(DataSourceConfig),
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => DataSourceConfig,
+    }),
     UsersModule,
     // CountryModule,
     // StatesModule,
@@ -38,6 +39,8 @@ import { ConfigModule } from '@nestjs/config';
     CategoriesModule,
     ImagesPlacesModule,
     PlaceAccModule,
+    AuthModule,
+    SeedModule,
     // UserAccModule,
   ],
   controllers: [],

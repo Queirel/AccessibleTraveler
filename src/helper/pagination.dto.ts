@@ -1,4 +1,4 @@
-import { IsNumber, IsOptional, IsPositive } from 'class-validator';
+import { IsNumber, IsOptional } from 'class-validator';
 
 export class PaginationDto {
   @IsNumber()

@@ -14,36 +14,9 @@ import { ApiTags } from '@nestjs/swagger';
 export class AccessibilityController {
   constructor(private readonly accessibilityService: AccessibilityService) {}
 
-  @ApiTags('Accessibility')
   @Get('seed')
-  public async seedAccessibility() {
-    await this.accessibilityService.seedAccessibility({
-      name: 'Visual',
-      description: 'Visual',
-      icon: ' ',
-    });
-    await this.accessibilityService.seedAccessibility({
-      name: 'Motriz',
-      description: 'Motriz',
-      icon: ' ',
-    });
-    await this.accessibilityService.seedAccessibility({
-      name: 'Auditiva',
-      description: 'Auditiva',
-      icon: ' ',
-    });
-    await this.accessibilityService.seedAccessibility({
-      name: 'TEA',
-      description: 'TEA',
-      icon: ' ',
-    });
-    await this.accessibilityService.seedAccessibility({
-      name: 'Cognitiva',
-      description: 'Cognitiva',
-      icon: ' ',
-    });
-
-    return await this.accessibilityService.findAllAccessibilities();
+  public async seedAccessibilities() {
+    return await this.accessibilityService.seedAccessibilities();
   }
 
   @Put(':id')

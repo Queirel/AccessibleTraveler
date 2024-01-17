@@ -17,7 +17,10 @@ export class CommentsService {
   }
 
   public async findAllComments() {
-    const comments = await this.commentsRepository.find();
+    const comments = await this.commentsRepository.find()
+    // .createQueryBuilder('comments')
+    // .leftJoinAndSelect('comments.place', 'place')
+    // .getMany();
     return comments;
   }
 

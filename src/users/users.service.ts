@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsersEntity } from './entities/user.entity';
 import { Repository } from 'typeorm';
@@ -13,7 +13,7 @@ import {
   CognitoUserSession,
 } from 'amazon-cognito-identity-js';
 import { cognitoVerifier } from 'src/helper/cognito';
-import { seedUsers } from 'src/helper/seed';
+import { seedUsers } from 'src/helper/seed/userSeed';
 // import { registrarUsuario } from '../helper/cognito';
 @Injectable()
 export class UsersService {
@@ -55,6 +55,7 @@ export class UsersService {
       const user: UsersEntity = await this.userRepository.findOne({
         where: { id },
       });
+      if (!user) throw new NotFoundException('User doesnt exist');
       return user;
     } catch (error) {
       throw new InternalServerErrorException('some error');

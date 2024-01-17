@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -25,7 +26,7 @@ export class PlaceEntity {
   description: string;
 
   @Column()
-  placeid: string;
+  placemapid: string;
 
   // @Column()
   // longitude: number;
@@ -33,12 +34,14 @@ export class PlaceEntity {
   // @ManyToOne(() => CitiesEntity, (city) => city.place)
   // city: CitiesEntity;
 
-  @ManyToOne(() => CategoriesEntity, (category) => category.place)
+  @ManyToOne(() => CategoriesEntity, (category) => category.place, {
+    nullable: true,
+  })
   category: CategoriesEntity;
 
   // @ManyToOne(() => RecommendedEntity, (recommended) => recommended.place)
   // recommended: RecommendedEntity;
-  
+
   @OneToMany(() => RecommendedEntity, (recommended) => recommended.place)
   recommended: RecommendedEntity;
 

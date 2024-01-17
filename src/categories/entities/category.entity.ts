@@ -16,6 +16,6 @@ export class CategoriesEntity {
   @Column({ unique: true, nullable: true })
   image: string;
 
-  @OneToMany(() => PlaceEntity, (place) => place)
+  @OneToMany(() => PlaceEntity, (place) => place.category)
   place: PlaceEntity[];
 }

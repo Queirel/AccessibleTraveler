@@ -1,6 +1,3 @@
-// import { AppDS } from '../config/data.source';
-// import { UsersEntity } from '../users/entities/user.entity';
-
 export const seedUsers = [
   {
     firstname: 'Jules',
@@ -175,15 +172,3 @@ export const seedUsers = [
     password: 'yZ5/m<(V/%_/D',
   },
 ];
-
-export const seedPlaces = [ 
-
-]
-
-
-// async function seed(): Promise<any> {
-//   await AppDS.initialize();
-//   const queryRunner = AppDS.createQueryRunner();
-//   queryRunner.query('TRUNCATE TABLE "users" CASCADE');
-//   AppDS.destroy();
-// }; 

@@ -22,7 +22,7 @@ export class RecommendedEntity {
 
   // @Column()
   // place: string;
-  
+
   // @Column({ nullable: true })
   // image: string;
 
@@ -33,9 +33,8 @@ export class RecommendedEntity {
   // place: PlaceEntity;
 
   @ManyToOne(() => PlaceEntity, (place) => place.recommended)
-  @JoinColumn({ name: 'place_id' })
+  @JoinColumn({ name: 'placeid' })
   place: PlaceEntity;
-
 
   // @OneToOne(() => PlaceEntity, (place) => place.recommended)
   // @JoinColumn({ name: 'place_id' })

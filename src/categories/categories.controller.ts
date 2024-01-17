@@ -23,57 +23,57 @@ export class CategoriesController {
     return await this.categoriesService.updateCategory(body, id);
   }
 
-  @ApiTags('Category')
-  @Get('seed')
-  public async seedCategory() {
-    await this.categoriesService.seedCategory({
-      name: 'Alojamiento',
-      description: 'Alojamiento',
-      image: '1',
-    });
-    await this.categoriesService.seedCategory({
-      name: 'Transporte',
-      description: 'Transporte',
-      image: '2',
-    });
-    await this.categoriesService.seedCategory({
-      name: 'Actividades',
-      description: 'Actividades',
-      image: '3',
-    });
-    await this.categoriesService.seedCategory({
-      name: 'Pasajes',
-      description: 'Pasajes',
-      image: '4',
-    });
-    await this.categoriesService.seedCategory({
-      name: 'Comercios',
-      description: 'Comercios',
-      image: '5',
-    });
-    await this.categoriesService.seedCategory({
-      name: 'Gastronomia',
-      description: 'Gastronomia',
-      image: '6',
-    });
-    await this.categoriesService.seedCategory({
-      name: 'Agencias de viaje',
-      description: 'Agencias de viaje',
-      image: '7',
-    });
-    await this.categoriesService.seedCategory({
-      name: 'Agencias',
-      description: 'Agencias',
-      image: '8',
-    });
-    await this.categoriesService.seedCategory({
-      name: 'Playas y Balnearios',
-      description: 'Playas y Balnearios',
-      image: '9',
-    });
+  // @ApiTags('Category')
+  // @Get('seed')
+  // public async seedCategory() {
+  //   await this.categoriesService.seedCategory({
+  //     name: 'Alojamiento',
+  //     description: 'Alojamiento',
+  //     image: '1',
+  //   });
+  //   await this.categoriesService.seedCategory({
+  //     name: 'Transporte',
+  //     description: 'Transporte',
+  //     image: '2',
+  //   });
+  //   await this.categoriesService.seedCategory({
+  //     name: 'Actividades',
+  //     description: 'Actividades',
+  //     image: '3',
+  //   });
+  //   await this.categoriesService.seedCategory({
+  //     name: 'Pasajes',
+  //     description: 'Pasajes',
+  //     image: '4',
+  //   });
+  //   await this.categoriesService.seedCategory({
+  //     name: 'Comercios',
+  //     description: 'Comercios',
+  //     image: '5',
+  //   });
+  //   await this.categoriesService.seedCategory({
+  //     name: 'Gastronomia',
+  //     description: 'Gastronomia',
+  //     image: '6',
+  //   });
+  //   await this.categoriesService.seedCategory({
+  //     name: 'Agencias de viaje',
+  //     description: 'Agencias de viaje',
+  //     image: '7',
+  //   });
+  //   await this.categoriesService.seedCategory({
+  //     name: 'Agencias',
+  //     description: 'Agencias',
+  //     image: '8',
+  //   });
+  //   await this.categoriesService.seedCategory({
+  //     name: 'Playas y Balnearios',
+  //     description: 'Playas y Balnearios',
+  //     image: '9',
+  //   });
 
-    return await this.categoriesService.findAllCategories();
-  }
+  //   return await this.categoriesService.findAllCategories();
+  // }
 
   @ApiTags('Category')
   @Post()
@@ -85,6 +85,11 @@ export class CategoriesController {
   @Get()
   public async findAllCategories() {
     return await this.categoriesService.findAllCategories();
+  }
+
+  @Get('seed')
+  public async seedCategories() {
+    return await this.categoriesService.seedCategories();
   }
 
   @ApiTags('Category')

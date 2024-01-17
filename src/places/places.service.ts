@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PlaceEntity } from './entities/place.entity';
 import { Repository } from 'typeorm';
+import { seedPlaces } from 'src/helper/seed/placeSeed';
 
 @Injectable()
 export class PlacesService {
@@ -15,7 +16,11 @@ export class PlacesService {
   }
 
   public async findAllPlaces() {
-    const place = await this.placeRepository.find();
+    // const place = await this.placeRepository.find();
+    const place = await this.placeRepository
+      .createQueryBuilder('places')
+      .leftJoinAndSelect('places.category', 'category')
+      .getMany();
     return place;
   }
 
@@ -34,5 +39,10 @@ export class PlacesService {
   public async deletePlace(id: string) {
     const place = await this.placeRepository.delete(id);
     return place;
+  }
+
+  public async seedPlaces() {
+    await this.placeRepository.query('TRUNCATE TABLE "places" CASCADE');
+    await this.placeRepository.insert(seedPlaces);
   }
 }

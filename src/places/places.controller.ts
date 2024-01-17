@@ -15,6 +15,11 @@ import { ApiTags } from '@nestjs/swagger';
 export class PlacesController {
   constructor(private readonly placesService: PlacesService) {}
 
+  @Get('seed')
+  public async seedPlaces() {
+    return await this.placesService.seedPlaces();
+  }
+
   @ApiTags('Places')
   @Post()
   public async createPlace(@Body() body) {
@@ -25,7 +30,6 @@ export class PlacesController {
   public async updatePlace(@Param('id') id: string, @Body() body: any) {
     return await this.placesService.updatePlace(body, id);
   }
-
 
   @ApiTags('Places')
   @Get()
