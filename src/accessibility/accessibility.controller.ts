@@ -6,6 +6,7 @@ import {
   Param,
   Delete,
   Put,
+  NotFoundException,
 } from '@nestjs/common';
 import { AccessibilityService } from './accessibility.service';
 import { ApiTags } from '@nestjs/swagger';
@@ -14,37 +15,51 @@ import { ApiTags } from '@nestjs/swagger';
 export class AccessibilityController {
   constructor(private readonly accessibilityService: AccessibilityService) {}
 
-  @Get('seed')
-  public async seedAccessibilities() {
-    return await this.accessibilityService.seedAccessibilities();
-  }
+  // @Get('seed')
+  // public async seedAccessibilities() {
+  //   return await this.accessibilityService.seedAccessibilities();
+  // }
 
   @Put(':id')
   public async updateAccessibility(@Param('id') id: string, @Body() body: any) {
-    return await this.accessibilityService.updateAccessibility(body, id);
+    try {
+      return await this.accessibilityService.updateAccessibility(body, id);
+    } catch {}
   }
 
   @ApiTags('Accessibility')
   @Post()
   public async createAccessibility(@Body() body) {
-    return await this.accessibilityService.createAccessibility(body);
+    try {
+      return await this.accessibilityService.createAccessibility(body);
+    } catch {}
   }
 
   @ApiTags('Accessibility')
   @Get()
   public async findAllAccessibilities() {
-    return await this.accessibilityService.findAllAccessibilities();
+    try {
+      return await this.accessibilityService.findAllAccessibilities();
+    } catch (err) {
+      throw new NotFoundException('Accessibilities not found');
+    }
   }
 
   @ApiTags('Accessibility')
   @Get(':id')
   public async findAccessibilityById(@Param('id') id: string) {
-    return await this.accessibilityService.findAccessibilityById(id);
+    try {
+      return await this.accessibilityService.findAccessibilityById(id);
+    } catch (err) {
+      throw new NotFoundException('Accessibility not found');
+    }
   }
 
   @ApiTags('Accessibility')
   @Delete(':id')
   public async deleteAccessibility(@Param('id') id: string) {
-    return await this.accessibilityService.deleteAccessibility(id);
+    try {
+      return await this.accessibilityService.deleteAccessibility(id);
+    } catch {}
   }
 }

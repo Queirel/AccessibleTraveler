@@ -7,6 +7,7 @@ import { RecommendedEntity } from './entities/recommended.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([RecommendedEntity])],
   controllers: [RecommendedController],
-  providers: [RecommendedService]
+  providers: [RecommendedService],
+  exports: [RecommendedService],
 })
 export class RecommendedModule {}

@@ -6,6 +6,7 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
+  NotFoundException,
 } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
@@ -19,24 +20,36 @@ export class CommentsController {
   @ApiTags('Comments')
   @Post()
   public async createComment(@Body() body) {
-    return await this.commentsService.createComment(body);
+    try {
+      return await this.commentsService.createComment(body);
+    } catch {}
   }
 
   @ApiTags('Comments')
   @Get()
   public async findAllComments() {
-    return await this.commentsService.findAllComments();
+    try {
+      return await this.commentsService.findAllComments();
+    } catch (err) {
+      throw new NotFoundException('Comments not found');
+    }
   }
 
   @ApiTags('Comments')
   @Get(':id')
   public async findCommentById(@Param('id', ParseUUIDPipe) id: string) {
-    return await this.commentsService.findCommentById(id);
+    try {
+      return await this.commentsService.findCommentById(id);
+    } catch (err) {
+      throw new NotFoundException('Comment not found');
+    }
   }
 
   @ApiTags('Comments')
   @Delete(':id')
   public async deleteComment(@Param('id', ParseUUIDPipe) id: string) {
-    return await this.commentsService.deleteComment(id);
+    try {
+      return await this.commentsService.deleteComment(id);
+    } catch {}
   }
 }

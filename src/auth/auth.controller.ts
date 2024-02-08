@@ -14,21 +14,17 @@ import { AuthService } from './auth.service';
 import { CreateUserCognitoDto } from 'src/users/dto/create-user-cognito.dto';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { ApiParam, ApiTags } from '@nestjs/swagger';
-import { UsersService } from 'src/users/users.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly usersService: UsersService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
-  @HttpCode(HttpStatus.OK)
-  @Post('login')
-  signIn(@Body() signInDto: Record<string, any>) {
-    const user = { email: signInDto.username, password: signInDto.password };
-    return this.authService.authenticateUser(user);
-  }
+  // @HttpCode(HttpStatus.OK)
+  // @Post('login')
+  // signIn(@Body() signInDto: Record<string, any>) {
+  //   const user = { email: signInDto.username, password: signInDto.password };
+  //   return this.authService.authenticateUser(user);
+  // }
 
   @UseGuards(AuthGuard)
   @Get('profile')
@@ -46,9 +42,14 @@ export class AuthController {
   ) {
     const { email, password } = createUserDto;
     const cognitoData = { email, password };
-    const cognito = await this.usersService.createUserCognito(cognitoData);
-    const user = await this.usersService.createUser(createUserDto);
+    const cognito = await this.authService.createUserCognito(cognitoData);
+    const user = await this.authService.createUser(createUserDto);
     return { cognito, user };
+  }
+
+  @Post('verify')
+  public async cognitoJwtVerify(@Body() jwt) {
+    return await this.authService.cognitoJwtVerify(jwt);
   }
 
   @Post('login')
@@ -57,6 +58,6 @@ export class AuthController {
   ) {
     const { email, password } = createUserDto;
     const cognitoData = { email, password };
-    return await this.usersService.authenticateUser(cognitoData);
+    return await this.authService.authenticateUser(cognitoData);
   }
 }

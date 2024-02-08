@@ -1,35 +1,65 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PlaceEntity } from './entities/place.entity';
 import { Repository } from 'typeorm';
-import { seedPlaces } from 'src/helper/seed/placeSeed';
+import { seedPlaces } from 'src/seed/seed/placeSeed';
+import { CategoriesEntity } from 'src/categories/entities/category.entity';
+import { CreatePlaceDto } from './dto/create-place.dto';
 
 @Injectable()
 export class PlacesService {
   constructor(
     @InjectRepository(PlaceEntity)
     private readonly placeRepository: Repository<PlaceEntity>,
+    @InjectRepository(CategoriesEntity)
+    private categoryRepository: Repository<CategoriesEntity>,
   ) {}
 
-  public async createPlace(body) {
-    return await this.placeRepository.save(body);
+  public async createPlace(createPlaceDto) {
+    // try {
+    //   const category = await this.categoryRepository.findOne({
+    //     where: { id: createPlaceDto.categoryid },
+    //   });
+    //   console.log(category);
+    //   console.log(createPlaceDto);
+    //   if (!category) {
+    //     throw new NotFoundException(
+    //       'La categoría con el ID especificado no existe',
+    //     );
+    //   }
+    // createPlaceDto.categoryid = '0accd802-aae5-48dd-b057-5e251f022454';
+    return await this.placeRepository.save(createPlaceDto);
+    // await this.placeRepository.query(
+    //   `INSERT INTO places (name, description, placemapid, categoryid) 
+    //   VALUES ("aaaaaaaas","aaaaaaaad","aaaaaaaaf","0accd802-aae5-48dd-b057-5e251f022454")`,
+    // );
+    // } catch (err) {
+    //   throw new Error(err)
+    // }
   }
 
   public async findAllPlaces() {
-    // const place = await this.placeRepository.find();
-    const place = await this.placeRepository
-      .createQueryBuilder('places')
-      .leftJoinAndSelect('places.category', 'category')
-      .getMany();
+    const place = await this.placeRepository.find();
+    // const place: PlaceEntity[] = await this.placeRepository
+    //   .createQueryBuilder('places')
+    //   .leftJoin('places.category', 'category')
+    //   .getRawMany();
     return place;
   }
 
-  public async updatePlace(body: any, id: any) {
+  public async updatePlace(body: any, id: string) {
     const place = await this.placeRepository.update(id, body);
     return place;
   }
 
   public async findPlaceById(id: string): Promise<PlaceEntity> {
+    // const place: PlaceEntity = await this.placeRepository
+    //   .createQueryBuilder('places')
+    //   .leftJoinAndSelect('places.category', 'category')
+    //   .where({ id })
+    //   .getOne();
+    // return place;
+
     const place: PlaceEntity = await this.placeRepository.findOne({
       where: { id },
     });
@@ -41,8 +71,8 @@ export class PlacesService {
     return place;
   }
 
-  public async seedPlaces() {
-    await this.placeRepository.query('TRUNCATE TABLE "places" CASCADE');
-    await this.placeRepository.insert(seedPlaces);
-  }
+  // public async seedPlaces() {
+  //   await this.placeRepository.query('TRUNCATE TABLE "places" CASCADE');
+  //   await this.placeRepository.insert(seedPlaces);
+  // }
 }

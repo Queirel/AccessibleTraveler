@@ -32,7 +32,7 @@ export class RecommendedEntity {
   // @JoinColumn({ name: 'place_id' })
   // place: PlaceEntity;
 
-  @ManyToOne(() => PlaceEntity, (place) => place.recommended)
+  @OneToOne(() => PlaceEntity, (place) => place.recommended)
   @JoinColumn({ name: 'placeid' })
   place: PlaceEntity;
 

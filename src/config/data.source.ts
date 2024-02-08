@@ -37,6 +37,8 @@ export const DataSourceConfig: DataSourceOptions = {
   migrationsTableName: 'migrations',
   synchronize: true,
   migrationsRun: true,
+  logging: true,
+
   // ssl: {
   //   rejectUnauthorized: false, // This line will fix new error
   // },

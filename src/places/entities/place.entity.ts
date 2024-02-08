@@ -1,9 +1,11 @@
 import {
   Column,
   Entity,
+  IsNull,
   JoinColumn,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { PlacesAccessibilityEntity } from '../../place-acc/entities/place-acc.entity';
@@ -27,6 +29,9 @@ export class PlaceEntity {
 
   @Column()
   placemapid: string;
+  
+  @Column()
+  categoryid: string;
 
   // @Column()
   // longitude: number;
@@ -34,26 +39,41 @@ export class PlaceEntity {
   // @ManyToOne(() => CitiesEntity, (city) => city.place)
   // city: CitiesEntity;
 
-  @ManyToOne(() => CategoriesEntity, (category) => category.place, {
-    nullable: true,
-  })
+  @ManyToOne(
+    () => CategoriesEntity,
+    (category: CategoriesEntity) => category.place,
+    {
+      nullable: true,
+      createForeignKeyConstraints: true,
+    },
+  )
+  @JoinColumn({ name: 'categoryid', referencedColumnName: 'id' })
   category: CategoriesEntity;
 
   // @ManyToOne(() => RecommendedEntity, (recommended) => recommended.place)
   // recommended: RecommendedEntity;
 
-  @OneToMany(() => RecommendedEntity, (recommended) => recommended.place)
+  @OneToOne(() => RecommendedEntity, (recommended) => recommended.place, {
+    onDelete: 'CASCADE',
+  })
   recommended: RecommendedEntity;
 
   @OneToMany(
     () => PlacesAccessibilityEntity,
     (placesAccessibility) => placesAccessibility.place,
+    {
+      onDelete: 'CASCADE',
+    },
   )
   accessibilityIncludes: PlacesAccessibilityEntity[];
 
-  @OneToMany(() => ImagePlaceEntity, (img_plc) => img_plc.place)
+  @OneToMany(() => ImagePlaceEntity, (img_plc) => img_plc.place, {
+    onDelete: 'CASCADE',
+  })
   img_plc: ImagePlaceEntity[];
 
-  @OneToMany(() => CommentsEntity, (comment) => comment.place)
+  @OneToMany(() => CommentsEntity, (comment) => comment.place, {
+    onDelete: 'CASCADE',
+  })
   comment: CommentsEntity[];
 }

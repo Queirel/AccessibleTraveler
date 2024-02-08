@@ -29,9 +29,9 @@ export class UsersEntity {
   @Column({ nullable: true })
   image: string;
 
-  @Exclude()
-  @Column()
-  password: string;
+  // @Exclude()
+  // @Column()
+  // password: string;
 
   // @OneToMany(
   //   () => UsersAccessibilityEntity,
@@ -42,6 +42,6 @@ export class UsersEntity {
   // @ManyToOne(() => CountryEntity, (country) => country.user)
   // country: CountryEntity;
 
-  @OneToOne(() => CommentsEntity, (comment) => comment.user)
+  @OneToMany(() => CommentsEntity, (comment) => comment.user)
   comment: CommentsEntity;
 }

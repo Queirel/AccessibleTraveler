@@ -1,4 +1,12 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
+import { SeedService } from './seed.service';
 
 @Controller('seed')
-export class SeedController {}
+export class SeedController {
+  constructor(private readonly seedService: SeedService) {}
+
+  @Get()
+  public async seedAll() {
+    return await this.seedService.seedAll();
+  }
+}

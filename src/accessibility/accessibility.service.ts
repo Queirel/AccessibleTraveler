@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AccessibilityEntity } from './entities/accessibility.entity';
 import { Repository } from 'typeorm';
-import { seedAccessibilities } from 'src/helper/seed/accessibilitySeed';
+// import { seedAccessibilities } from 'src/helper/seed/accessibilitySeed';
 
 @Injectable()
 export class AccessibilityService {
@@ -15,16 +15,16 @@ export class AccessibilityService {
     return await this.accessibilityRepository.save(body);
   }
 
-  public async seedAccessibility(seed) {
-    return await this.accessibilityRepository.save(seed);
-  }
+  // public async seedAccessibility(seed) {
+  //   return await this.accessibilityRepository.save(seed);
+  // }
 
-  public async seedAccessibilities() {
-    await this.accessibilityRepository.query(
-      'TRUNCATE TABLE "accessibility" CASCADE',
-    );
-    await this.accessibilityRepository.insert(seedAccessibilities);
-  }
+  // public async seedAccessibilities() {
+  //   await this.accessibilityRepository.query(
+  //     'TRUNCATE TABLE "accessibility" CASCADE',
+  //   );
+  //   await this.accessibilityRepository.insert(seedAccessibilities);
+  // }
 
   public async findAllAccessibilities() {
     const accessibility = await this.accessibilityRepository.find();

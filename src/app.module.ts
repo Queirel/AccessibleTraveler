@@ -16,6 +16,9 @@ import { PlaceAccModule } from './place-acc/place-acc.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { SeedModule } from './seed/seed.module';
+import { UsersEntity } from './users/entities/user.entity';
+import { PlaceEntity } from './places/entities/place.entity';
+import { CategoriesEntity } from './categories/entities/category.entity';
 
 @Module({
   imports: [
@@ -28,6 +31,7 @@ import { SeedModule } from './seed/seed.module';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => DataSourceConfig,
     }),
+    TypeOrmModule.forFeature([UsersEntity, PlaceEntity, CategoriesEntity]),
     UsersModule,
     // CountryModule,
     // StatesModule,

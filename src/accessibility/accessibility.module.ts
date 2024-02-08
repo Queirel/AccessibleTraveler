@@ -8,5 +8,6 @@ import { AccessibilityEntity } from './entities/accessibility.entity';
   imports: [TypeOrmModule.forFeature([AccessibilityEntity])],
   controllers: [AccessibilityController],
   providers: [AccessibilityService],
+  exports: [AccessibilityService],
 })
 export class AccessibilityModule {}

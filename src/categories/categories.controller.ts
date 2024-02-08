@@ -7,6 +7,7 @@ import {
   Delete,
   ParseUUIDPipe,
   Put,
+  NotFoundException,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { ApiTags } from '@nestjs/swagger';
@@ -20,7 +21,9 @@ export class CategoriesController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() body: any,
   ) {
-    return await this.categoriesService.updateCategory(body, id);
+    try {
+      return await this.categoriesService.updateCategory(body, id);
+    } catch {}
   }
 
   // @ApiTags('Category')
@@ -78,29 +81,41 @@ export class CategoriesController {
   @ApiTags('Category')
   @Post()
   public async createCategory(@Body() body) {
-    return await this.categoriesService.createCategory(body);
+    try {
+      return await this.categoriesService.createCategory(body);
+    } catch {}
   }
 
   @ApiTags('Category')
   @Get()
   public async findAllCategories() {
-    return await this.categoriesService.findAllCategories();
+    try {
+      return await this.categoriesService.findAllCategories();
+    } catch (err) {
+      throw new NotFoundException('Categories not found');
+    }
   }
 
-  @Get('seed')
-  public async seedCategories() {
-    return await this.categoriesService.seedCategories();
-  }
+  // @Get('seed')
+  // public async seedCategories() {
+  //   return await this.categoriesService.seedCategories();
+  // }
 
   @ApiTags('Category')
   @Get(':id')
   public async findCategoryById(@Param('id', new ParseUUIDPipe()) id: string) {
-    return await this.categoriesService.findCategoryById(id);
+    try {
+      return await this.categoriesService.findCategoryById(id);
+    } catch (err) {
+      throw new NotFoundException('Category not found');
+    }
   }
 
   @ApiTags('Category')
   @Delete(':id')
   public async deleteCategory(@Param('id', new ParseUUIDPipe()) id: string) {
-    return await this.categoriesService.deleteCategory(id);
+    try {
+      return await this.categoriesService.deleteCategory(id);
+    } catch {}
   }
 }

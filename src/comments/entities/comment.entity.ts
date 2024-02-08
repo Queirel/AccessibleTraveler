@@ -28,9 +28,10 @@ export class CommentsEntity {
   place_id: string;
 
   @ManyToOne(() => PlaceEntity, (place) => place.comment)
+  @JoinColumn({ name: 'placeid' })
   place: PlaceEntity;
 
-  @OneToOne(() => UsersEntity, (user) => user.comment)
-  @JoinColumn({ name: 'user_id' })
+  @ManyToOne(() => UsersEntity, (user) => user.comment)
+  @JoinColumn({ name: 'userid' })
   user: UsersEntity;
 }
