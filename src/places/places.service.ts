@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { seedPlaces } from 'src/seed/seed/placeSeed';
 import { CategoriesEntity } from 'src/categories/entities/category.entity';
 import { CreatePlaceDto } from './dto/create-place.dto';
+import { googlePlaceGetById, googlePlaceGetId } from 'src/helper/google-place';
 
 @Injectable()
 export class PlacesService {
@@ -68,6 +69,16 @@ export class PlacesService {
 
   public async deletePlace(id: string) {
     const place = await this.placeRepository.delete(id);
+    return place;
+  }
+
+  // public async getPlaceId(body: string) {
+  //   const place = await googlePlaceGetId(body);
+  //   return place;
+  // }
+
+  public async googlePlaceGetById(placeid: any) {
+    const place = await googlePlaceGetById(placeid);
     return place;
   }
 

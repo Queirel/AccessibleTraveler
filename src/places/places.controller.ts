@@ -13,6 +13,7 @@ import { PlacesService } from './places.service';
 import { ApiTags } from '@nestjs/swagger';
 import { CreatePlaceDto } from './dto/create-place.dto';
 import { PlaceEntity } from './entities/place.entity';
+import { googlePlaceGetId } from 'src/helper/google-place';
 
 @Controller('places')
 export class PlacesController {
@@ -28,6 +29,20 @@ export class PlacesController {
   public async createPlace(@Body() body) {
     // public async createPlace(@Body() createPlaceDto: CreatePlaceDto) {
     return await this.placesService.createPlace(body);
+  }
+
+  // @ApiTags('Places')
+  // @Post('googleid')
+  // public async getPlaceId(@Body() address) {
+  //   // public async createPlace(@Body() createPlaceDto: CreatePlaceDto) {
+  //   return await this.placesService.getPlaceId(address);
+  // }
+
+  @ApiTags('Places')
+  @Post('placebyid')
+  public async googlePlaceGetById(@Body() placeid) {
+    // public async createPlace(@Body() createPlaceDto: CreatePlaceDto) {
+    return await this.placesService.googlePlaceGetById(placeid);
   }
 
   @Put(':id')
