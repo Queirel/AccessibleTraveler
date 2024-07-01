@@ -101,7 +101,7 @@ EXPOSE 3000
 # Comando para ejecutar la aplicación
 CMD ["npm", "run", "start:prod"]
 ```
-docker-compose.yml
+### docker-compose.yml
 El docker-compose.yml define los servicios de Docker para la aplicación.
 
 ```
