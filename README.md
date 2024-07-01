@@ -134,7 +134,7 @@ volumes:
 ```
 
 
-Contribuir
+### Contribuir
 Si deseas contribuir a este proyecto, por favor sigue los siguientes pasos:
 
 Haz un fork del repositorio.
@@ -143,5 +143,5 @@ Realiza tus cambios y haz commit (git commit -am 'Agrega nueva funcionalidad').
 Sube tus cambios a GitHub (git push origin feature/nueva-funcionalidad).
 Abre un Pull Request.
 
-Contacto
+### Contacto
 Para cualquier consulta o sugerencia, puedes contactarme en [federicoqueirel@hotmail.com].
