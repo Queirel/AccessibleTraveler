@@ -57,7 +57,7 @@ La documentación completa de la API está disponible en `http://localhost:3000/
 Para utilizar los endpoints protegidos, primero debes autenticarte y obtener un token JWT a través de AWS Cognito.
 
 ## Estructura del Proyecto
-
+```
 src/
 ├── auth/ # Módulo de autenticación
 ├── categories/ # Módulo de categorías
@@ -77,7 +77,6 @@ src/
 El `Dockerfile` define la imagen de Docker para la aplicación.
 
 ```dockerfile
-=======================================================
 # Usa la imagen base de Node.js
 FROM node:14-alpine
 
@@ -101,12 +100,11 @@ EXPOSE 3000
 
 # Comando para ejecutar la aplicación
 CMD ["npm", "run", "start:prod"]
-=======================================================
 
 docker-compose.yml
 El docker-compose.yml define los servicios de Docker para la aplicación.
 
-=======================================================
+
 version: '3.8'
 
 services:
@@ -134,7 +132,6 @@ services:
 volumes:
   db-data:
 
-  =======================================================
 
 
 Contribuir
