@@ -1,108 +1,108 @@
 # ACCESAPP
 
-Este proyecto es una API para la gestión de lugares, recomendaciones, categorías, usuarios, rating y comentarios, con autenticación utilizando AWS Cognito. La API está construida con NestJS y Express, utilizando PostgreSQL como base de datos y TypeORM como ORM. La documentación de la API se genera automáticamente con Swagger.
+This project is an API for managing places, recommendations, categories, users, ratings and comments, with authentication using AWS Cognito. The API is built with NestJS and Express, using PostgreSQL as the database and TypeORM as the ORM. API documentation is automatically generated with Swagger.
 
-## Características
+## Features
 
-- **Lugares**: CRUD para la gestión de lugares.
-- **Recomendaciones**: CRUD para la gestión de recomendaciones.
-- **Categorías**: CRUD para la gestión de categorías de lugares.
-- **Autenticación**: Integración con AWS Cognito para la autenticación de usuarios.
-- **Imágenes de Lugares**: Gestión de imágenes asociadas a los lugares.
-- **Comentarios**: CRUD para la gestión de comentarios en los lugares.
-- **Accesibilidad**: Implementación de características para mejorar la accesibilidad.
-- **Usuarios**: CRUD para la gestión de usuarios.
+- **Places**: CRUD for place management.
+- **Recommended**: CRUD for recommendation management.
+- **Categories**: CRUD for place category management.
+- **Autentication**: Integration with AWS Cognito for user authentication.
+- **Image-places**: Management of images associated with places.
+- **Comments**: CRUD for managing comments in places.
+- **Accessibilities**: Implementation of features to improve accessibility.
+- **Users**: CRUD for user management.
 
-## Tecnologías Utilizadas
+## Used technologies
 
-- **NestJS**: Framework para la construcción de aplicaciones Node.js eficientes, confiables y escalables.
-- **Express**: Framework web para Node.js.
-- **PostgreSQL**: Sistema de gestión de bases de datos relacional.
-- **TypeORM**: ORM para TypeScript y JavaScript.
-- **Swagger**: Herramienta para la generación de documentación de APIs.
-- **Docker**: Plataforma para desarrollar, enviar y ejecutar aplicaciones en contenedores.
+- **NestJS**: Framework for building efficient, reliable and scalable Node.js applications.
+- **Express**: Web framework for Node.js.
+- **PostgreSQL**: Relational database management system.
+- **TypeORM**: ORM for TypeScript and JavaScript.
+- **Swagger**: Tool for generating API documentation.
+- **Docker**: Platform for developing, shipping and running containerized applications.
 
-## Requisitos
+## Requirements
 
 - Docker
 - Docker Compose
-- Node.js (v14 o superior)
-- npm (v6 o superior)
+- Node.js (v14 or higher)
+- npm (v6 or higher)
 
 ## Instalación
 
-1. Clona este repositorio:
+1. Clone this repository:
     ```sh
     git clone https://github.com/Queirel/AccessibleTraveler.git
-    cd tu-repositorio
+    cd your-repository
     ```
 
-2. Crea un archivo `.env` en la raíz del proyecto con la configuración necesaria. Puedes basarte en el archivo `.env.template`.
+2. Create a `.env` file in the project root with the necessary configuration. You can rely on the `.env.template` file.
 
-3. Construye y levanta los contenedores Docker:
+3. Build and launch Docker containers:
     ```sh
     docker-compose up --build
     ```
 
-4. La aplicación estará disponible en `http://localhost:3000`.
+4. The application will be available in `http://localhost:3000`.
 
-## Uso
+## Use
 
 ### Endpoints
 
-La documentación completa de la API está disponible en `http://localhost:3000/api`.
+Complete API documentation is available at `http://localhost:3000/api`.
 
-### Autenticación
+### Authentication
 
-Para utilizar los endpoints protegidos, primero debes autenticarte y obtener un token JWT a través de AWS Cognito.
+To use secured endpoints, you must first authenticate and obtain a JWT token through AWS Cognito.
 
-## Estructura del Proyecto
+## Project Structure
 ```
 src/
-├── auth/ # Módulo de autenticación
-├── categories/ # Módulo de categorías
-├── comments/ # Módulo de comentarios
-├── images/ # Módulo de imágenes de lugares
-├── places/ # Módulo de lugares
-├── recommended/ # Módulo de recomendaciones
-├── users/ # Módulo de usuarios
-├── accessibility/ # Módulo de accesibilidad
-├── main.ts # Punto de entrada de la aplicación
-└── app.module.ts # Módulo principal de la aplicación
+├── auth/ # Authentication module
+├── categories/ # Categories module
+├── comments/ # comments module
+├── images/ # images module
+├── places/ # places module
+├── recommended/ # recommended module
+├── users/ # users module
+├── accessibility/ # accessibility module
+├── main.ts # Application entry point
+└── app.module.ts # Main application module
 ```
 ## Docker
 
 ### Dockerfile
 ```
-El `Dockerfile` define la imagen de Docker para la aplicación.
+The `Dockerfile` defines the Docker image for the application.
 
 ```dockerfile
-# Usa la imagen base de Node.js
+# Use the Node.js base image
 FROM node:14-alpine
 
-# Establece el directorio de trabajo en el contenedor
+# Set the working directory in the container
 WORKDIR /app
 
-# Copia los archivos package.json y package-lock.json
+# Copy the package.json and package-lock.json files
 COPY package*.json ./
 
-# Instala las dependencias
+# Install the dependencies
 RUN npm install
 
-# Copia el resto de los archivos de la aplicación
+# Copy the rest of the application files
 COPY . .
 
-# Compila el código TypeScript a JavaScript
+# Compile TypeScript code to JavaScript
 RUN npm run build
 
-# Expone el puerto 3000
+# Expose port 3000
 EXPOSE 3000
 
-# Comando para ejecutar la aplicación
+# Command to run the application
 CMD ["npm", "run", "start:prod"]
 ```
 ### docker-compose.yml
-El docker-compose.yml define los servicios de Docker para la aplicación.
+The docker-compose.yml defines the Docker services for the application.
 
 ```
 version: '3.8'
@@ -134,14 +134,14 @@ volumes:
 ```
 
 
-### Contribuir
-Si deseas contribuir a este proyecto, por favor sigue los siguientes pasos:
+### Contribute
+If you wish to contribute to this project, please follow the following steps:
 
-Haz un fork del repositorio.
-Crea una nueva rama (git checkout -b feature/nueva-funcionalidad).
-Realiza tus cambios y haz commit (git commit -am 'Agrega nueva funcionalidad').
-Sube tus cambios a GitHub (git push origin feature/nueva-funcionalidad).
-Abre un Pull Request.
+Fork the repository.
+Create a new branch (git checkout -b feature/new-feature).
+Make your changes and commit (git commit -am 'Add new functionality').
+Upload your changes to GitHub (git push origin feature/new-functionality).
+Open a Pull Request.
 
-### Contacto
-Para cualquier consulta o sugerencia, puedes contactarme en [federicoqueirel@hotmail.com].
+### Contact
+For any questions or suggestions, you can contact me at [federicoqueirel@hotmail.com].
