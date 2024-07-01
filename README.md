@@ -69,11 +69,11 @@ src/
 ├── accessibility/ # Módulo de accesibilidad
 ├── main.ts # Punto de entrada de la aplicación
 └── app.module.ts # Módulo principal de la aplicación
-
+```
 ## Docker
 
 ### Dockerfile
-
+```
 El `Dockerfile` define la imagen de Docker para la aplicación.
 
 ```dockerfile
@@ -100,11 +100,11 @@ EXPOSE 3000
 
 # Comando para ejecutar la aplicación
 CMD ["npm", "run", "start:prod"]
-
+```
 docker-compose.yml
 El docker-compose.yml define los servicios de Docker para la aplicación.
 
-
+```
 version: '3.8'
 
 services:
@@ -131,7 +131,7 @@ services:
 
 volumes:
   db-data:
-
+```
 
 
 Contribuir
