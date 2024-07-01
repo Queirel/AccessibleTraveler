@@ -5,3 +5,50 @@ npm run m:run
 docker-compose up -d
 
 docker-compose down
+
+
+
+- Revisar el criterio de los borrados de objetos
+        - Podes Borrar Fisico. El registro desaparece. Tenes que eliminar las relaciones antes de borrar.
+            - Borrar en cascada implica perder datos. Fijate de borrar en cascada solo aquellas cosas que estas OK eliminando para siempre
+        - Podes Deshabilitar objetos. Esto se llama borrado logico. Es mucho mas seguro a nivel datos. Tenes que tener mas cuidado en las pantallas que lo usan.
+        - Podes NO BORRAR y mostrar un error si es que el objeto tiene relaciones que la apuntan. “No se puede borrar la accesibilidad porque hay Lugares que la usan”
+    - Paginado
+        - Lo que tiene capacidad de crecer, como Usuarios o Lugares, paginalo en el Backend.
+            - Al menos uno, paginalo en el Backend, asi aprendes a paginar por DB.
+    - Autenticacion (Authentication )
+        - Quien es el que se loggea
+        - Usuario y contrasena
+            - Pueden estar en tu DB. Hay frameworks que manejan esto. Creo que habia uno llamado Passport, pero puede haber otros.
+            - Pueden estar en un 3rd party como AWS Cognito o Auth0
+                - El usuario se crea en tu DB
+                - Vos lo mandas a crear a Cognito. Entonces, queda en ambos lados. Tu DB NO tiene la contrasena.
+                - Cognito se encarga de varias cosas
+                    - Crear la contrasena
+                    - Forgot password
+                    - Autenticacion. Validar la cuenta y contraseña y crear el JWT.
+                    - SSO con Google y otras redes sociales.
+                    - Validar la cuenta de mail
+                    - Cambio de contrasena
+                    - Complejidad de la contrasena
+                    - Expiracion de la contrasena
+    - Autorizacion (Authorization )
+        - Validar que está loggeado
+            - JWT
+                - Lo podes crear y validar vos si usas Passport o similar
+                - Lo crea cognito. Y lo valida cognito
+                    - El login puede ir a tu server via API Call y tu server validar el usr/pass con cognito
+                    - El login puede ir a Cognito directamente. Y tu server validar el JWT contra cognito cuando lo recibe.
+        - Permisos o no para hacer alg
+            - Roles y Privilegios
+                - Los usuarios tienen privilegios
+                - Los roles son conjutos de privilegios. 
+                - Los usuarios pueden tener uno o mas roles
+                - Al final de cuentas lo que importa son los prvilegios que tiene el usuario, directamente o a traves de sus roles
+                    - Eso se llama Access Control List.  ACL.
+                    - Tipicamente el JWT tiene el ACL.
+                - En el Backend, tus API calls validan los privilegios
+                - En el FE, los componentes validan privilegios
+                - Los Roles y Privilegios estan en la DB.
+                - Los privilegios son harcodeados. No podes crear y borrar privilegios de la DB. Los privilegios vienen con el código. APIs nuevas implican privilegios nuevos.
+                -

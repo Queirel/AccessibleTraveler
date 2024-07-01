@@ -4,16 +4,15 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  IsUUID,
+  // IsUUID,
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { UsersEntity } from '../entities/user.entity';
-import { AccessibilityEntity } from 'src/accessibility/entities/accessibility.entity';
+// import { UsersEntity } from '../entities/user.entity';
+// import { AccessibilityEntity } from 'src/accessibility/entities/accessibility.entity';
 // import { ACCESS_LEVEL, ROLES } from 'src/constants/roles';
 
 export class CreateUserDto {
-
   @IsEmail()
   @ApiProperty()
   @IsNotEmpty()

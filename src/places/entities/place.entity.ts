@@ -1,5 +1,6 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   IsNull,
   JoinColumn,
@@ -7,6 +8,7 @@ import {
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { PlacesAccessibilityEntity } from '../../place-acc/entities/place-acc.entity';
 // import { CitiesEntity } from '../../cities/entities/city.entity';
@@ -33,6 +35,15 @@ export class PlaceEntity {
   @Column()
   categoryid: string;
 
+  @Column({ nullable: true })
+  lastUserUpdate: string;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+ 
   // @Column()
   // longitude: number;
 

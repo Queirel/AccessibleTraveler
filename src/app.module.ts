@@ -19,6 +19,7 @@ import { SeedModule } from './seed/seed.module';
 import { UsersEntity } from './users/entities/user.entity';
 import { PlaceEntity } from './places/entities/place.entity';
 import { CategoriesEntity } from './categories/entities/category.entity';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
@@ -35,6 +36,9 @@ import { CategoriesEntity } from './categories/entities/category.entity';
     UsersModule,
     // CountryModule,
     // StatesModule,
+    MulterModule.register({
+      dest: './uploads',
+    }),
     AccessibilityModule,
     // CitiesModule,
     RecommendedModule,

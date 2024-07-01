@@ -1,73 +1,150 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# ACCESAPP
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este proyecto es una API para la gestión de lugares, recomendaciones, categorías, usuarios, rating y comentarios, con autenticación utilizando AWS Cognito. La API está construida con NestJS y Express, utilizando PostgreSQL como base de datos y TypeORM como ORM. La documentación de la API se genera automáticamente con Swagger.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Características
 
-## Description
+- **Lugares**: CRUD para la gestión de lugares.
+- **Recomendaciones**: CRUD para la gestión de recomendaciones.
+- **Categorías**: CRUD para la gestión de categorías de lugares.
+- **Autenticación**: Integración con AWS Cognito para la autenticación de usuarios.
+- **Imágenes de Lugares**: Gestión de imágenes asociadas a los lugares.
+- **Comentarios**: CRUD para la gestión de comentarios en los lugares.
+- **Accesibilidad**: Implementación de características para mejorar la accesibilidad.
+- **Usuarios**: CRUD para la gestión de usuarios.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Tecnologías Utilizadas
 
-## Installation
+- **NestJS**: Framework para la construcción de aplicaciones Node.js eficientes, confiables y escalables.
+- **Express**: Framework web para Node.js.
+- **PostgreSQL**: Sistema de gestión de bases de datos relacional.
+- **TypeORM**: ORM para TypeScript y JavaScript.
+- **Swagger**: Herramienta para la generación de documentación de APIs.
+- **Docker**: Plataforma para desarrollar, enviar y ejecutar aplicaciones en contenedores.
 
-```bash
-$ npm install
-```
+## Requisitos
 
-## Running the app
+- Docker
+- Docker Compose
+- Node.js (v14 o superior)
+- npm (v6 o superior)
 
-```bash
-# development
-$ npm run start
+## Instalación
 
-# watch mode
-$ npm run start:dev
+1. Clona este repositorio:
+    ```sh
+    git clone https://github.com/Queirel/AccessibleTraveler.git
+    cd tu-repositorio
+    ```
 
-# production mode
-$ npm run start:prod
-```
+2. Crea un archivo `.env` en la raíz del proyecto con la configuración necesaria. Puedes basarte en el archivo `.env.template`.
 
-## Test
+3. Construye y levanta los contenedores Docker:
+    ```sh
+    docker-compose up --build
+    ```
 
-```bash
-# unit tests
-$ npm run test
+4. La aplicación estará disponible en `http://localhost:3000`.
 
-# e2e tests
-$ npm run test:e2e
+## Uso
 
-# test coverage
-$ npm run test:cov
-```
+### Endpoints
 
-## Support
+La documentación completa de la API está disponible en `http://localhost:3000/api`.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Autenticación
 
-## Stay in touch
+Para utilizar los endpoints protegidos, primero debes autenticarte y obtener un token JWT a través de AWS Cognito.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Estructura del Proyecto
 
-## License
+src/
+├── auth/ # Módulo de autenticación
+├── categories/ # Módulo de categorías
+├── comments/ # Módulo de comentarios
+├── images/ # Módulo de imágenes de lugares
+├── places/ # Módulo de lugares
+├── recommended/ # Módulo de recomendaciones
+├── users/ # Módulo de usuarios
+├── accessibility/ # Módulo de accesibilidad
+├── main.ts # Punto de entrada de la aplicación
+└── app.module.ts # Módulo principal de la aplicación
 
-Nest is [MIT licensed](LICENSE).
+## Docker
+
+### Dockerfile
+
+El `Dockerfile` define la imagen de Docker para la aplicación.
+
+```dockerfile
+=======================================================
+# Usa la imagen base de Node.js
+FROM node:14-alpine
+
+# Establece el directorio de trabajo en el contenedor
+WORKDIR /app
+
+# Copia los archivos package.json y package-lock.json
+COPY package*.json ./
+
+# Instala las dependencias
+RUN npm install
+
+# Copia el resto de los archivos de la aplicación
+COPY . .
+
+# Compila el código TypeScript a JavaScript
+RUN npm run build
+
+# Expone el puerto 3000
+EXPOSE 3000
+
+# Comando para ejecutar la aplicación
+CMD ["npm", "run", "start:prod"]
+=======================================================
+
+docker-compose.yml
+El docker-compose.yml define los servicios de Docker para la aplicación.
+
+=======================================================
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - '5432:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      DATABASE_URL: postgres://postgres:password@db:5432/mydatabase
+    depends_on:
+      - db
+
+volumes:
+  db-data:
+
+  =======================================================
+
+
+Contribuir
+Si deseas contribuir a este proyecto, por favor sigue los siguientes pasos:
+
+Haz un fork del repositorio.
+Crea una nueva rama (git checkout -b feature/nueva-funcionalidad).
+Realiza tus cambios y haz commit (git commit -am 'Agrega nueva funcionalidad').
+Sube tus cambios a GitHub (git push origin feature/nueva-funcionalidad).
+Abre un Pull Request.
+
+Contacto
+Para cualquier consulta o sugerencia, puedes contactarme en [federicoqueirel@hotmail.com].

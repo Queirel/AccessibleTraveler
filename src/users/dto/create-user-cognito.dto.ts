@@ -16,7 +16,6 @@ export class CreateUserCognitoDto {
   @MinLength(5)
   email: string;
 
-  
   @ApiProperty()
   @IsNotEmpty()
   @IsString()

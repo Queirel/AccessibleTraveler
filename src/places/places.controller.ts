@@ -8,12 +8,17 @@ import {
   ParseUUIDPipe,
   Put,
   NotFoundException,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { PlacesService } from './places.service';
 import { ApiTags } from '@nestjs/swagger';
 import { CreatePlaceDto } from './dto/create-place.dto';
 import { PlaceEntity } from './entities/place.entity';
 import { googlePlaceGetId } from 'src/helper/google-place';
+import { diskStorage } from 'multer';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { extname } from 'path';
 
 @Controller('places')
 export class PlacesController {
@@ -79,5 +84,25 @@ export class PlacesController {
     try {
       return await this.placesService.deletePlace(id);
     } catch {}
+  }
+
+  @Post('file')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './uploads/etc',
+        filename: (req, file, callback) => {
+          const uniqueSuffix =
+            Date.now() + '-' + Math.round(Math.random() * 1e9);
+          const ext = extname(file.originalname);
+          const filename = `${uniqueSuffix}${ext}`;
+          callback(null, filename);
+        },
+      }),
+    }),
+  )
+  handleUpload(@UploadedFile() file: Express.Multer.File) {
+    console.log('file', file);
+    return 'File upload API';
   }
 }
